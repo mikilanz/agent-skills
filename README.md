@@ -8,6 +8,8 @@ Each skill lives in its own folder under [`skills/`](skills/) and can be install
 | Skill | Description |
 |---|---|
 | [nestjs-api-builder](skills/nestjs-api-builder/) | Build or extend a layered NestJS REST API: Fastify, TypeORM + Postgres with raw-SQL migrations, RxJS services, Swagger, CQRS, Redis, Kafka and gateway-claims auth. Includes a type-checked starter project. |
+| [golang-api-builder](skills/golang-api-builder/) | Build or extend a layered Go REST API: Gin, pgx/v5 + sqlc + golang-migrate on Postgres, Redis cache-aside, slog, swaggo Swagger, gateway-claims auth with role guards and tenant scoping, and a dynamic filter/sort/pagination contract. Includes a starter project that builds and passes its tests. |
+| [rust-api-builder](skills/rust-api-builder/) | Build or extend a layered Rust REST API: actix-web 4, Diesel 2 + r2d2 on Postgres with embedded migrations, utoipa Swagger, mockable repository traits, gateway-claims auth with role guards and tenant scoping, a whitelisted filter/sort/pagination contract, Redis, reqwest integrations and cron jobs. Includes a starter project that builds and passes its tests. |
 
 ## Install with the skills CLI
 

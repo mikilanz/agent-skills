@@ -1,0 +1,10 @@
+# Tag build (production): build and push the image tagged with the git tag.
+steps:
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["build", "-t", "<region>-docker.pkg.dev/<project>/<repository>/<service>:$TAG_NAME", "."]
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["push", "<region>-docker.pkg.dev/<project>/<repository>/<service>:$TAG_NAME"]
+tags: ["$TAG_NAME"]
+options:
+  machineType: "E2_HIGHCPU_8"
+timeout: 1200s

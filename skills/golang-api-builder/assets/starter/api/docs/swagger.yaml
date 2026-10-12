@@ -1,0 +1,40 @@
+definitions:
+  general.DefaultHttpResponse:
+    properties:
+      message:
+        type: string
+      ok:
+        type: boolean
+      statusCode:
+        type: integer
+    type: object
+info:
+  contact: {}
+  description: Collection of Go API Starter endpoints.
+  title: Go API Starter
+  version: 1.0.0
+paths:
+  /health:
+    get:
+      description: Checks the database and Redis connections
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/general.DefaultHttpResponse'
+        "503":
+          description: Service Unavailable
+          schema:
+            $ref: '#/definitions/general.DefaultHttpResponse'
+      summary: Health check
+      tags:
+      - Health
+securityDefinitions:
+  BearerAuth:
+    description: Client-provided user JWT containing information to be extracted from
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

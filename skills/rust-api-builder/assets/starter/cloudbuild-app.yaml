@@ -1,0 +1,60 @@
+# Kubernetes manifest deployed by cloudbuild.yaml. Non-secret config goes in `env`; secrets
+# (DATABASE_URL, REDIS_URL, tokens, passwords) live in a Secret created out of band:
+#   kubectl -n <namespace> create secret generic <service>-env --from-env-file=.env.staging
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: <service>
+  namespace: <namespace>
+  labels:
+    app: <service>
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: <service>
+  template:
+    metadata:
+      labels:
+        app: <service>
+    spec:
+      containers:
+        - name: app
+          image: <region>-docker.pkg.dev/<project>/<repository>/<service>:staging
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: APP_PORT
+              value: "8080"
+            - name: RUST_LOG
+              value: "info"
+          envFrom:
+            - secretRef:
+                name: <service>-env
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: <service>
+  namespace: <namespace>
+spec:
+  type: ClusterIP
+  selector:
+    app: <service>
+  ports:
+    - port: 80
+      targetPort: 8080
