@@ -1,0 +1,6 @@
+/dist
+/node_modules
+/coverage
+.env
+*.log
+.nestjs_repl_history
